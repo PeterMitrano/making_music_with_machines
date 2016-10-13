@@ -8,15 +8,13 @@ Adafruit_DCMotor *motor = AFMS.getMotor(1);
 Encoder flag_encoder(2, 4);
 Encoder motor_encoder(3, 5);
 
-const float kP = -.2;
-const int max_speed = 200;
-const int potPin = A0;
+const float kP = -.05;
+const int max_speed = 30;
 const float flag_to_motor = 16 * (3200.0 / 360.0);
 
 void setup() {
   Serial.begin(9600);
   AFMS.begin();
-  motor->setSpeed(20); // 0-255
 }
 
 void loop() {
@@ -35,8 +33,6 @@ void loop() {
 
   output = min(output, max_speed);
   output = max(output, -max_speed);
-
-  Serial.println(output);
 
   if (output > 4) {
     motor->run(FORWARD);
